@@ -1,24 +1,25 @@
 services:
   proxy:
-    image: eclipse-temurin:17-jre-alpine
-    #entrypoint: /opt/app/proxyEntrypoint.sh
-    working_dir: /opt/app/
-    command: java -jar /opt/app/velocity-3.2.0-SNAPSHOT-252.jar
+    image: ghcr.io/timystream/mjrt:17
+    environment:
+      - SERVERJAR=[ServerSoftwareFile]
+      - ARGS=""
     ports:
       - "25565:25565"
     volumes:
-      - ./proxy:/opt/app
+      - ./[Your Server folder name]:/app
     stdin_open: true
     tty: true
     user: 1000:1000
-  lobby:
-    image: eclipse-temurin:17-jre-alpine
-    working_dir: /opt/app/
-    command: java -jar /opt/app/paper-1.19.4-516.jar
+## User Server ##
+  [your servername]:
+    image: ghcr.io/timystream/mjrt:17
+    environment:
+      - SERVERJAR=[ServerSoftwareFile]
     expose:
       - 25565
     volumes:
-      - ./lobby:/opt/app
+      - ./[Your Server folder name]:/app
     stdin_open: true
     tty: true
     user: 1000:1000
