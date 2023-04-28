@@ -1,6 +1,6 @@
 services:
   proxy:
-    image: eclipse-temurin:17-jre-focal
+    image: eclipse-temurin:17-jre-alpine
     #entrypoint: /opt/app/proxyEntrypoint.sh
     working_dir: /opt/app/
     command: java -jar /opt/app/velocity-3.2.0-SNAPSHOT-252.jar
@@ -10,8 +10,9 @@ services:
       - ./proxy:/opt/app
     stdin_open: true
     tty: true
+    user: 1000:1000
   lobby:
-    image: eclipse-temurin:17-jre-focal
+    image: eclipse-temurin:17-jre-alpine
     working_dir: /opt/app/
     command: java -jar /opt/app/paper-1.19.4-516.jar
     expose:
@@ -20,5 +21,6 @@ services:
       - ./lobby:/opt/app
     stdin_open: true
     tty: true
+    user: 1000:1000
     depends_on:
       - proxy
