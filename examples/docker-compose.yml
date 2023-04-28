@@ -1,0 +1,27 @@
+services:
+  proxy:
+    image: ghcr.io/timystream/mjrt:17
+    environment:
+      - SERVERJAR=velocity-3.2.0-SNAPSHOT-252.jar
+      - ARGS=""
+    ports:
+      - "25565:25565"
+    volumes:
+      - ./proxy:/app
+    stdin_open: true
+    tty: true
+    user: 1000:1000
+## User Server ##
+  lobby:
+    image: ghcr.io/timystream/mjrt:17
+    environment:
+      - SERVERJAR=paper-1.19.4-516.jar
+    expose:
+      - 25565
+    volumes:
+      - ./lobby:/app
+    stdin_open: true
+    tty: true
+    user: 1000:1000
+    depends_on:
+      - proxy
