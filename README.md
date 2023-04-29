@@ -27,7 +27,7 @@ user: 1000:1000 # <== This need to be the exact same IDs with your user who crea
 5. Configure your servers to your liking! The proxy will after the creation not be directly connected with the lobby server. This is something you have to do manually but you can address every server with its "service" name e.g.: `proxy` or `lobby`. For this have a look at the [velocity.toml](./examples/velocity-proxy/velocity.toml) file in the examples folder on line **75**.
 
 ## Add new Server:
-Go ahead and create a new Folder for the Server and Download your desired Server software as before. To round it up you need to add the section below to the `docker-compose.yml` file. That this snippet works you have to change all the data where the `[ ]` (parenthesis) are right now. In the parenthesis is standing what is supposed to go there.   
+Go ahead and create a new Folder for the Server and Download your desired Server software as before. To round it up you need to add the section below to the `docker-compose.yml` file. That this snippet works you have to change all the data where the `[ ]` (parentheses) are right now. In the parentheses is standing what is supposed to go there.   
 
 ```YAML
 [your servername]:
