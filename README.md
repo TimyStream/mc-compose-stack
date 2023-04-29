@@ -25,3 +25,22 @@ user: 1000:1000 # <== This need to be the exact same IDs with your user who crea
 ```
 - If you have problems or don't know where to put what, please have a look in the [example compose stack](./examples/docker-compose.yml) file, this is the one i used to test all this.
 5. Configure your servers to your liking! The proxy will after the creation not be directly connected with the lobby server. This is something you have to do manually but you can address every server with its "service" name e.g.: `proxy` or `lobby`. For this have a look at the [velocity.toml](./examples/velocity-proxy/velocity.toml) file in the examples folder on line **75**.
+
+## Add new Server:
+Go ahead and create a new Folder for the Server and Download your desired Server software as before. To round it up you need to add the section below to the `docker-compose.yml` file. That this snippet works you have to change all the data where the `[ ]` (parenthesis) are right now. In the parenthesis is standing what is supposed to go there.   
+
+```YAML
+[your servername]:
+    image: ghcr.io/timystream/mjrt:17
+    environment:
+      - SERVERJAR=[ServerSoftwareFile]
+    expose:
+      - 25565
+    volumes:
+      - ./[Your Server folder name]:/app
+    stdin_open: true
+    tty: true
+    user: [your user ID]:[your group id]
+    depends_on:
+      - proxy
+```
