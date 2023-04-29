@@ -10,7 +10,7 @@ services:
       - ./[Your Server folder name]:/app
     stdin_open: true
     tty: true
-    user: 1000:1000
+    user: [your User ID]:[your groupID]
 ## User Server ##
   [your servername]:
     image: ghcr.io/timystream/mjrt:17
@@ -22,6 +22,6 @@ services:
       - ./[Your Server folder name]:/app
     stdin_open: true
     tty: true
-    user: 1000:1000
+    user: [your User ID]:[your groupID]
     depends_on:
       - proxy
