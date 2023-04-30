@@ -1,0 +1,3 @@
+[submodule "mc-compose-stack-cli"]
+	path = mc-compose-stack-cli
+	url = git@github.com:TimyStream/mc-compose-stack-cli.git
