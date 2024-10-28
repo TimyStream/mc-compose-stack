@@ -1,18 +1,15 @@
+networks:
+   net-vpn:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.8.0.0/16
+          ip_range: 10.8.1.0/24
+          gateway: 10.8.1.254
+
 services:
-  proxy:
-    image: ghcr.io/timystream/mjrt:17
-    environment:
-      - SERVERJAR=[ServerSoftwareFile]
-      - ARGS=""
-    ports:
-      - "25565:25565"
-    volumes:
-      - ./[Your Server folder name]:/app
-    stdin_open: true
-    tty: true
-    user: [your User ID]:[your groupID]
-## User Server ##
-  [your servername]:
+## Server ##
+  mcserv:
     image: ghcr.io/timystream/mjrt:17
     environment:
       - SERVERJAR=[ServerSoftwareFile]
@@ -24,4 +21,33 @@ services:
     tty: true
     user: [your User ID]:[your groupID]
     depends_on:
-      - proxy
+      - 
+
+##vpn##
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE #optional
+    environment:
+      - PUID=[your User ID]
+      - PGID=[your Group ID]
+      - TZ=[TimeZone]
+      - SERVERURL=[a domain where your server is reachable] #optional
+      - SERVERPORT=51820 #optional
+      - PEERS=[your Players seperated by comma] #optional
+      - PEERDNS=auto #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - ALLOWEDIPS=10.8.1.0/24 #optional
+      - LOG_CONFS=true #optional
+    volumes:
+      - ./wgconf/:/config
+      - /lib/modules:/lib/modules #optional
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      - net-vpn
